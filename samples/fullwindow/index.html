@@ -33,10 +33,12 @@
         <div id="BotChatGoesHere"></div>
         <script src="../../botchat.js"></script>
         <script>
+            var conn = BotChat.HumanInTheLoopBotConnection();
+
             var params = BotChat.queryParams(location.search);
 
             var user = {
-                id: params['userid'] || 'userid',
+                id:  params['userid'] || 'userid',
                 name: params["username"] || 'username'
                 };
             
@@ -48,12 +50,7 @@
             window['botchatDebug'] = params['debug'] && params['debug'] === "true";
 
             BotChat.App({
-                directLine: {
-                    secret: params['s'],
-                    token: params['t'],
-                    domain: params['domain'],
-                    webSocket: params['webSocket'] && params['webSocket'] === "true" // defaults to true
-                },
+                botConnection: new BotChat.HumanInTheLoopBotConnection(),
                 user: user,
                 bot: bot,
                 locale: params['locale'],
